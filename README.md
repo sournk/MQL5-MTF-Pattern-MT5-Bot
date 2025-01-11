@@ -11,80 +11,83 @@ The bot for MetaTrader 5 with custom multi time frame pattern strategy.
 1.00: First version
 ```
 
-!!! warning Предупреждение
-    1. Стратегию разрабатывал на фьюче CNY на Финаме - CRH5. 
-    2. График торгов очень рваный даже на высоких ТФ. ==Сделки будут сильно скользить особенно на больших лотах из низкой ликвидности.==
-    3. Расчет лота стратегии описан как простая формула Депозит/Цена*Сайз_%. По ней без плеч не хватит депозита для Сайза > 100%. ==Это очень странная формула.==
+!!! warning WARNING
+    1. The trading strategy is determined by the client and the author is not responsible for it.
+    2. The bot does not guarantee profit.
+    3. The bot does not guarantee 100% deposit protection.
+    4. Use the bot at your own risk.
 
-## Strategy
 
-#### Signal
+## Strategy Check List
 
-**Open trade on LTH bar closing only when HTF bar is same dir**
+- [x] Directional Trading: The bot will only place trades on the LTF in the direction of the current HTF candle.
+    - [x] If the HTF candle is bullish, trades will only be executed in the bullish direction on the LTF.
+    - [x] If the HTF candle is bearish, trades will only be executed in the bearish direction on the LTF.
 
-- [ ] Directional Trading: The bot will only place trades on the LTF in the direction of the current HTF candle.
-    - [ ] If the HTF candle is bullish, trades will only be executed in the bullish direction on the LTF.
-    - [ ] If the HTF candle is bearish, trades will only be executed in the bearish direction on the LTF.
+- [x] Trade Execution and Continuity:
+    - [x] Trades will be initiated at the open of the current HTF candle. 
+        > When the `SIG_NBO` is `true` the bot enters only in the beginning of HTF candle. Turn it to `false` to allow the bot to enter inside HTF on signal.==
 
-- [ ] Trade Execution and Continuity:
-    - [ ] Trades will be initiated at the open of the current HTF candle.
-    - [ ] Trades will remain open as long as the trend on the LTF aligns with the HTF candle direction.
-    - [ ] If the next LTF candle changes direction (e.g., from bullish to bearish), the bot will close all open positions.
-    - [ ] If the next HTF candle continues the trend of the previous HTF candle, trades will continue without closure.
+    - [x] Trades will remain open as long as the trend on the LTF aligns with the HTF candle direction.
+    - [x] If the next LTF candle changes direction (e.g., from bullish to bearish), the bot will close all open positions.
+    - [x] If the next HTF candle continues the trend of the previous HTF candle, trades will continue without closure.
 
-- [ ] Drawdown Management:
-    - [ ] Drawdowns will only be permitted during the entry of a trade.
-    - [ ] No trade should go into a negative state beyond the initial entry drawdown.
-    - [ ] If a trade reaches a break-even point (0.00 profit/loss), it will automatically close.
+- [x] Drawdown Management:
+    - [x] Drawdowns will only be permitted during the entry of a trade.
+        > Drawdown is only possible until first LTF candle is still open.
+    - [x] No trade should go into a negative state beyond the initial entry drawdown.
+    - [x] If a trade reaches a break-even point (0.00 profit/loss), it will automatically close.
 
-- [ ] Trade Closure Rules:
-    - [ ] Trades must close at the close of the HTF candle unless the trend continues.
-    - [ ] All trades will close if the LTF or HTF trend reverses.
+- [x] Trade Closure Rules:
+    - [x] Trades must close at the close of the HTF candle unless the trend continues.
+    - [x] All trades will close if the LTF or HTF trend reverses.
 
-- [ ] Candle Analysis
-    - [ ] Analyze HTF candles to determine the current trend (bullish or bearish).
-    - [ ] Continuously monitor LTF candles to align trades with the HTF trend.
-    - [ ] Detect changes in the direction of LTF candles for trade closure.
+- [x] Candle Analysis
+    - [x] Analyze HTF candles to determine the current trend (bullish or bearish).
+    - [x] Continuously monitor LTF candles to align trades with the HTF trend.
+    - [x] Detect changes in the direction of LTF candles for trade closure.
 
 - [ ] Trade Management
-    - [ ] Trade Opening:
-        - [ ] Open trades on the LTF in the direction of the current HTF candle at its open.
-        - [ ] Limit trades to the current candle’s time frame on both HTF and LTF.
-    - [ ] Trade Monitoring:
-        - [ ] Ensure trades remain within acceptable drawdown limits.
-        - [ ] Automatically close trades at break-even (0.00 profit/loss).
-    - [ ] Trade Closure:
-        - [ ] Close trades at the end of the HTF candle unless the next HTF candle continues the trend.
-        - [ ] Close trades immediately if the LTF candle reverses direction.
+    - [x] Trade Opening:
+        - [x] Open trades on the LTF in the direction of the current HTF candle at its open.
+        - [x] Limit trades to the current candle’s time frame on both HTF and LTF.
+    - [x] Trade Monitoring:
+        - [x] Ensure trades remain within acceptable drawdown limits.
+        - [x] Automatically close trades at break-even (0.00 profit/loss).
+    - [x] Trade Closure:
+        - [x] Close trades at the end of the HTF candle unless the next HTF candle continues the trend.
+        - [x] Close trades immediately if the LTF candle reverses direction.
 
-- [ ] Risk Management
-    - [ ] strict drawdown policies to avoid prolonged negative trades.
-    - [ ] no trade remains open in a negative state beyond acceptable limits.
-    - [ ] Prevent trades that contradict the HTF candle trend.
+- [x] Risk Management
+    - [x] strict drawdown policies to avoid prolonged negative trades.
+    - [x] no trade remains open in a negative state beyond acceptable limits.
+    - [x] Prevent trades that contradict the HTF candle trend.
 
-- [ ] 3.4. Automation and Execution
-    - [ ] Fully automate the detection of HTF and LTF candles and their respective trends.
-    - [ ] Monitor candle changes in real-time to ensure timely execution and closure of trades.
+- [x] 3.4. Automation and Execution
+    - [x] Fully automate the detection of HTF and LTF candles and their respective trends.
+    - [x] Monitor candle changes in real-time to ensure timely execution and closure of trades.
 
-- [ ] 4. Non-Functional Requirements
-    - [ ] Performance:
-        - [ ] The bot should execute trades with minimal latency.
-        - [ ] Candle analysis and trade monitoring should occur in real-time.
-    - [ ] Reliability:
-        - [ ] Ensure continuous uptime during trading sessions.
-        - [ ] Maintain accurate detection of candle trends to avoid erroneous trades.
-    - [ ] Scalability:
-        - [ ] Support multiple trading pairs and time frames as required.
+- [x] 4. Non-Functional Requirements
+    - [x] Performance:
+        - [x] The bot should execute trades with minimal latency.
+        - [x] Candle analysis and trade monitoring should occur in real-time.
+    - [x] Reliability:
+        - [x] Ensure continuous uptime during trading sessions.
+        - [x] Maintain accurate detection of candle trends to avoid erroneous trades.
+    - [x] Scalability:
+        - [x] Support multiple trading pairs and time frames as required.
+        > Use different magic in `MS_MGC` to separate instances of the bot.
 
-- [ ] 5. Additional Considerations
-    - [ ] The bot should log all trades and events for audit and analysis purposes.
-    - [ ] Customizable parameter settings for:
-        - [ ] HTF and LTF time frame selection.
-        - [ ] No of trade
-        - [ ] Lot size
-        - [ ] 9 ema paramerter where trades are place with respect to it
+- [x] 5. Additional Considerations
+    - [x] The bot should log all trades and events for audit and analysis purposes.
+        > Use `MS_LOG_LL` to set log level.
+    - [x] Customizable parameter settings for:
+        - [x] HTF and LTF time frame selection.
+        - [x] No of trade
+        - [x] Lot size
+        - [x] 9 ema paramerter where trades are place with respect to it
 
-- [ ] Summary This trading bot will follow a structured and disciplined approach to trade execution based on HTF and LTF candle trends. By ensuring trades align strictly with these trends and implementing robust riskmangement management
+- [x] Summary This trading bot will follow a structured and disciplined approach to trade execution based on HTF and LTF candle trends. By ensuring trades align strictly with these trends and implementing robust riskmangement management
 
 ## Installation
 1. Make sure that your MetaTrader 5 terminal is updated to the latest version. To test Expert Advisors, it is recommended to update the terminal to the latest beta version. To do this, run the update from the main menu `Help->Check For Updates->Latest Beta Version`. The Expert Advisor may not run on previous versions because it is compiled for the latest version of the terminal. In this case you will see messages on the `Journal` tab about it.
@@ -97,3 +100,31 @@ The bot for MetaTrader 5 with custom multi time frame pattern strategy.
 
 ## Inputs
 
+##### 1. ENTRY (ENT)
+- [x] `ENT_CNT`: Pos number open on signal
+- [x] `ENT_LTV`: Pos Lot Value
+
+##### 2. SIGNAL (SIG)
+- [x] `SIG_DIR`: Signal Direction Allowed
+- [x] `SIG_MOD`: Signal Mode
+- [x] `SIG_NBO`: Signal on New Bar Only
+- [x] `SIG_HTF`: Higher Timeframe
+- [x] `SIG_LTF`: Lower Timeframe
+
+##### 3. FILTER (FIL)
+- [x] `FIL_ENB`: Filter Enabled
+- [x] `FIL_MAM`: MA Method
+- [x] `FIL_MAP`: MA Period
+
+##### 4. GUI
+- [x] `GUI_ENB`: Draw HTF bar Enabled
+- [x] `GUI_CLR_LNG`: Color for Long
+- [x] `GUI_CLR_SHT`: Color for Short
+- [x] `GUI_BFL`: Fill Bar
+
+##### 5. MISCELLANEOUS (MS)
+- [x] `MS_MGC`: Expert Adviser ID - Magic
+- [x] `MS_EGP`: Expert Adviser Global Prefix
+- [x] `MS_LOG_LL`: Log Level
+- [x] `MS_LOG_FI`: Log Filter IN String (use `;` as sep)
+- [x] `MS_LOG_FO`: Log Filter OUT String (use `;` as sep)
