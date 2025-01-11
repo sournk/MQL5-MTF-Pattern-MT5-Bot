@@ -17,6 +17,7 @@ The bot for MetaTrader 5 with custom multi time frame pattern strategy.
     3. The bot does not guarantee 100% deposit protection.
     4. Use the bot at your own risk.
 
+![Layout](img/UM001.%20Layout.gif)
 
 ## Strategy Check List
 
