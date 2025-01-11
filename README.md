@@ -48,7 +48,7 @@ The bot for MetaTrader 5 with custom multi time frame pattern strategy.
     - [x] Continuously monitor LTF candles to align trades with the HTF trend.
     - [x] Detect changes in the direction of LTF candles for trade closure.
 
-- [ ] Trade Management
+- [x] Trade Management
     - [x] Trade Opening:
         - [x] Open trades on the LTF in the direction of the current HTF candle at its open.
         - [x] Limit trades to the current candle’s time frame on both HTF and LTF.
@@ -98,6 +98,8 @@ The bot for MetaTrader 5 with custom multi time frame pattern strategy.
 5. Check `Allow Auto Trading` in the bot settings.
 6. Enable the auto trading mode in the terminal by clicking the `Algo Trading` button on the main toolbar.
 7. Load the set of settings by clicking the `Load` button and selecting the set-file.
+
+8. ==Run the bot on the chart TF, which is the same with `SIG_LTF` input. It's needed to draw HTF candle rectangle and EMA line.==
 
 ## Inputs
 
