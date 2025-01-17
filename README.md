@@ -91,7 +91,7 @@ The bot for MetaTrader 5 with custom multi time frame pattern strategy.
 
 - [x] Summary This trading bot will follow a structured and disciplined approach to trade execution based on HTF and LTF candle trends. By ensuring trades align strictly with these trends and implementing robust riskmangement management
 
-- [x] New mode `LTF only`: https://www.mql5.com/en/job/230439/discussion?id=1117936&comment=55646809. 
+- [x] ==New mode `LTF only`==: https://www.mql5.com/en/job/230439/discussion?id=1117936&comment=55646809. 
     - [x] 1. The bot opens pos if LTF candle close with same dir as MA.
     - [x] 2. MA direction is an angle of MA build by last two candles: >0.0 up; <0.0 down.
     - [x] 3. After that the bot keeps pos in the market until LTF candle reverses.
