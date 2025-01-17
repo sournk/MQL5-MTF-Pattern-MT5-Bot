@@ -3,11 +3,12 @@ The bot for MetaTrader 5 with custom multi time frame pattern strategy.
 
 * Created by Denis Kislitsyn | denis@kislitsyn.me | [kislitsyn.me](https://kislitsyn.me/personal/algo)
 * MQL5 Freelance: https://www.mql5.com/en/job/230439
-* Version: 1.00
+* Version: 1.01
 
 
 ## What's new?
 ```
+1.01: [+] 'LTF Only' mode
 1.00: First version
 ```
 
